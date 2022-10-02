@@ -1,16 +1,27 @@
-# Pinia, The Enjoyable Vue Store 
-## Boilerplate Code
+# Pinia, The Enjoyable Vue Store
 
-![Course Feature Image](https://vueschool.io/media/bc6229f7525d1df7f87bd22604eaa468/Pinia_not-transparent.png)
+![Course Feature Image](https://vueschool.io/media/6a4143864b2793123492ea9c1706d2ea/pinia-course-feature-image.png)
 
-## How to Use
+## Project Setup
 
-```
-npx degit  vueschool/pinia-course-boilerplate 
-```
-```
+```sh
 npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
 npm run dev
 ```
 
-[Checkout the course!](https://vueschool.io/courses/pinia-the-enjoyable-vue-store)
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
