@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { createPinia } from 'pinia';
 import App from "./App.vue";
 
 // Icons and Styles
@@ -13,6 +14,7 @@ import AppModalOverlay from "./components/AppModalOverlay.vue";
 // Init App
 createApp(App)
   .use(FontAwesomePlugin)
+  .use(createPinia())
   .component("AppButton", AppButton)
   .component("AppCountInput", AppCountInput)
   .component("AppModalOverlay", AppModalOverlay)
