@@ -7,17 +7,9 @@ import { useCartStore } from '@/stores/cart.js';
 
 const { products } = storeToRefs(useProductStore());
 const { fill } = useProductStore();
-
-const { items } = storeToRefs(useCartStore());
+const { addItems } = useCartStore();
 
 fill();
-
-const addToCart = (count, product) => {
-  count = parseInt(count);
-  for (let index = 0; index < count; index++) {
-    items.value.push(product);
-  }
-};
 </script>
 
 <template>
@@ -28,7 +20,7 @@ const addToCart = (count, product) => {
         v-for="product in products"
         :key="product.name"
         :product="product"
-        @addToCart="addToCart($event, product)"
+        @addToCart="addItems($event, product)"
       />
     </ul>
   </div>

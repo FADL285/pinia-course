@@ -5,11 +5,15 @@ export const useCartStore = defineStore('cart', {
     items: []
   }),
   getters: {
-    // doubleCount: (state) => state.count * 2
+    count: (state) => state.items.length,
+    isEmpty: (state) => state.count === 0
   },
   actions: {
-    increment() {
-      // this.count++;
+    addItems(count, item) {
+      count = parseInt(count);
+      for (let index = 0; index < count; index++) {
+        this.items.push({ ...item });
+      }
     }
   }
 });
