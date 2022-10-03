@@ -5,7 +5,7 @@ import CartItem from './CartItem.vue';
 import { storeToRefs } from 'pinia';
 import { useCartStore } from '@/stores/cart.js';
 
-const { count, isEmpty } = storeToRefs(useCartStore());
+const { count, isEmpty, grouped, groupCount } = storeToRefs(useCartStore());
 
 // data
 const active = ref(false);
@@ -22,14 +22,10 @@ const active = ref(false);
       <div v-if="!isEmpty">
         <ul class="items-in-cart">
           <CartItem
-            :product="{ name: 'Dried Pineapple', price: 5 }"
-            :count="5"
-            @updateCount=""
-            @clear=""
-          />
-          <CartItem
-            :product="{ name: 'Pineapple Gum', price: 3 }"
-            :count="5"
+            v-for="(items, id) in grouped"
+            :key="id"
+            :product="items[0]"
+            :count="groupCount(id)"
             @updateCount=""
             @clear=""
           />
