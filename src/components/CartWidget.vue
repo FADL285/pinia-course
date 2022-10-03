@@ -5,9 +5,10 @@ import CartItem from './CartItem.vue';
 import { storeToRefs } from 'pinia';
 import { useCartStore } from '@/stores/cart.js';
 
-const { count, isEmpty, grouped, groupCount } = storeToRefs(useCartStore());
+const cartStore = useCartStore();
+const { count, isEmpty, grouped, groupCount } = storeToRefs(cartStore);
 
-// data
+// local data
 const active = ref(false);
 </script>
 <template>
@@ -34,7 +35,9 @@ const active = ref(false);
           Total: <strong>$40</strong>
         </div>
         <div class="flex justify-end">
-          <AppButton class="secondary mr-2">Clear Cart</AppButton>
+          <AppButton class="secondary mr-2" @click.prevent="cartStore.$reset()"
+            >Clear Cart</AppButton
+          >
           <AppButton class="primary">Checkout</AppButton>
         </div>
       </div>
