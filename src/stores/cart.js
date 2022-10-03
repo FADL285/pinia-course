@@ -3,6 +3,8 @@ import { useProductStore } from '@/stores/product.js';
 import { useAuthStore } from '@/stores/auth.js';
 
 export const useCartStore = defineStore('cart', {
+  historyEnabled: true,
+
   state: () => ({
     items: []
   }),
