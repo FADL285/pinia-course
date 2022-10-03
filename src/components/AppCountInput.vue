@@ -1,11 +1,11 @@
 <script setup>
 defineProps({
   inStock: { type: Number, required: true },
-  modelValue: { type: [Number, String], default: 0 },
+  modelValue: { type: [Number, String], default: 0 }
 });
 
-const emit = defineEmits(["update:modelValue", "input"]);
-const updateValue = (value) => emit("update:modelValue", value?.target?.value || value);
+const emit = defineEmits(['update:modelValue', 'input']);
+const updateValue = (value) => emit('update:modelValue', value);
 </script>
 <template>
   <span>
@@ -15,7 +15,13 @@ const updateValue = (value) => emit("update:modelValue", value?.target?.value ||
     >
       -
     </button>
-    <input :value="modelValue" type="number" min="0" :max="inStock" @input="updateValue" />
+    <input
+      :value="modelValue"
+      type="number"
+      min="0"
+      :max="inStock"
+      @input="updateValue($event.target.value)"
+    />
     <button
       class="bg-gray-200 px-2 rounded-r cursor-pointer"
       @click="updateValue(modelValue < inStock ? modelValue + 1 : inStock)"

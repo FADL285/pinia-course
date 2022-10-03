@@ -4,9 +4,11 @@ import { ref } from 'vue';
 import CartItem from './CartItem.vue';
 import { storeToRefs } from 'pinia';
 import { useCartStore } from '@/stores/cart.js';
+import { useProductStore } from '@/stores/product.js';
 
 const cartStore = useCartStore();
-const { count, isEmpty, grouped, groupCount, total } = storeToRefs(cartStore);
+const { product } = storeToRefs(useProductStore());
+const { count, isEmpty, items, total } = storeToRefs(cartStore);
 
 // local data
 const active = ref(false);
@@ -23,12 +25,12 @@ const active = ref(false);
       <div v-if="!isEmpty">
         <ul class="items-in-cart">
           <CartItem
-            v-for="(items, id) in grouped"
-            :key="id"
-            :product="items[0]"
-            :count="groupCount(id)"
-            @updateCount=""
-            @clear="cartStore.clear(id)"
+            v-for="item in items"
+            :key="item.id"
+            :product="product(item.id)"
+            :count="item.count"
+            @updateCount="cartStore.setItemCount(item.id, $event)"
+            @clear="cartStore.clear(item.id)"
           />
         </ul>
         <div class="flex justify-end text-2xl mb-5">

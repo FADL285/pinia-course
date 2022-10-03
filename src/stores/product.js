@@ -5,7 +5,7 @@ export const useProductStore = defineStore('product', {
     products: []
   }),
   getters: {
-    // doubleCount: (state) => state.count * 2
+    product: (state) => (id) => state.products.find((prod) => prod.id === id)
   },
   actions: {
     async fill() {

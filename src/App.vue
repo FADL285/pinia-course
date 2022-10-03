@@ -20,7 +20,7 @@ fill();
         v-for="product in products"
         :key="product.name"
         :product="product"
-        @addToCart="addItems($event, product)"
+        @addToCart="addItems(product, $event)"
       />
     </ul>
   </div>

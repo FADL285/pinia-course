@@ -11,20 +11,20 @@
     "name": "Dried Pineapple",
     "image": "pineapple-dried.jpg",
     "price": 5,
-    "inStock": 12
+    "inStock": 20
   },
   {
     "id": "45141994-36cc-40ab-9629-cc4ffd1ca1f4",
     "name": "Pineapple Gum",
     "image": "pineapple-gum.jpg",
     "price": 3,
-    "inStock": 4
+    "inStock": 40
   },
   {
     "id": "248a27db-cbeb-47b1-95dd-5e08235cfbb5",
     "name": "Pineapple T-Shirt",
     "image": "pineapple-tshirt.jpg",
     "price": 12,
-    "inStock": 2
+    "inStock": 24
   }
 ]

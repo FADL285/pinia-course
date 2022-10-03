@@ -1,26 +1,40 @@
 import { defineStore } from 'pinia';
-import groupBy from 'lodash/groupBy';
+import { useProductStore } from '@/stores/product.js';
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
     items: []
   }),
   getters: {
-    count: (state) => state.items.length,
+    count: (state) => state.items.reduce((acc, item) => acc + item.count, 0),
     isEmpty: (state) => state.count === 0,
-    grouped: (state) => groupBy(state.items, (item) => item.id),
-    groupCount: (state) => (id) => state.grouped[id]?.length,
-    total: (state) => state.items.reduce((acc, item) => acc + item.price, 0)
+    total: (state) => {
+      const productStore = useProductStore();
+
+      return state.items.reduce(
+        (acc, item) => acc + productStore.product(item.id).price * item.count,
+        0
+      );
+    }
   },
   actions: {
-    addItems(count, item) {
+    addItems(item, count) {
+      const prod = this.items.find((prod) => prod.id === item.id);
       count = parseInt(count) <= item.inStock ? parseInt(count) : item.inStock;
-      for (let index = 0; index < count; index++) {
-        this.items.push({ ...item });
+      if (prod) {
+        prod.count += count;
+      } else {
+        this.items.push({ id: item.id, count });
       }
     },
     clear(id) {
       this.items = this.items.filter((item) => item.id !== id);
+    },
+    setItemCount(id, count) {
+      const prod = this.items.find((prod) => prod.id === id);
+      if (prod) {
+        prod.count = count;
+      }
     }
   }
 });
