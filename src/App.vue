@@ -13,6 +13,7 @@ const { fill } = useProductStore();
 const { addItems } = cartStore;
 
 const history = reactive([]);
+const future = reactive([]);
 const doingHistory = ref(false);
 history.push(JSON.stringify(cartStore.$state));
 
@@ -20,8 +21,18 @@ history.push(JSON.stringify(cartStore.$state));
 const undo = () => {
   if (history.length === 1) return;
   doingHistory.value = true;
-  history.pop();
+  future.push(history.pop());
   cartStore.$state = JSON.parse(history.at(-1));
+  doingHistory.value = false;
+};
+
+// Redo last action
+const redo = () => {
+  const latest = future.pop();
+  if (!latest) return;
+  doingHistory.value = true;
+  history.push(latest);
+  cartStore.$state = JSON.parse(latest);
   doingHistory.value = false;
 };
 
@@ -29,6 +40,8 @@ const undo = () => {
 cartStore.$subscribe((mutation, state) => {
   if (!doingHistory.value) {
     history.push(JSON.stringify(state));
+    // Clear future if new action is taken
+    future.length = 0;
   }
 });
 
@@ -56,6 +69,7 @@ fill();
     <TheHeader />
     <div class="mb-5 flex justify-end">
       <AppButton @click="undo">Undo</AppButton>
+      <AppButton class="ml-2" @click="redo">Redo</AppButton>
     </div>
     <ul class="sm:flex flex-wrap lg:flex-nowrap gap-5">
       <ProductCard
