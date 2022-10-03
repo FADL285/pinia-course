@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia';
 import { useCartStore } from '@/stores/cart.js';
 
 const cartStore = useCartStore();
-const { count, isEmpty, grouped, groupCount } = storeToRefs(cartStore);
+const { count, isEmpty, grouped, groupCount, total } = storeToRefs(cartStore);
 
 // local data
 const active = ref(false);
@@ -32,7 +32,7 @@ const active = ref(false);
           />
         </ul>
         <div class="flex justify-end text-2xl mb-5">
-          Total: <strong>$40</strong>
+          Total: <strong>${{ total }}</strong>
         </div>
         <div class="flex justify-end">
           <AppButton class="secondary mr-2" @click.prevent="cartStore.$reset()"
