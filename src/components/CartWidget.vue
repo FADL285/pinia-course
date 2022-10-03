@@ -1,10 +1,10 @@
 <script setup>
 // imports
 import { ref } from 'vue';
-import CartItem from './CartItem.vue';
 import { storeToRefs } from 'pinia';
 import { useCartStore } from '@/stores/cart.js';
 import { useProductStore } from '@/stores/product.js';
+import CartItem from './CartItem.vue';
 
 const cartStore = useCartStore();
 const { product } = storeToRefs(useProductStore());
@@ -12,6 +12,12 @@ const { count, isEmpty, items, total } = storeToRefs(cartStore);
 
 // local data
 const active = ref(false);
+
+const checkout = () => {
+  cartStore.checkout();
+  active.value = false;
+  cartStore.$reset();
+};
 </script>
 <template>
   <div class="relative">
@@ -40,7 +46,9 @@ const active = ref(false);
           <AppButton class="secondary mr-2" @click.prevent="cartStore.$reset()"
             >Clear Cart</AppButton
           >
-          <AppButton class="primary">Checkout</AppButton>
+          <AppButton class="primary" @click.prevent="checkout">
+            Checkout
+          </AppButton>
         </div>
       </div>
       <!-- Uncomment and use condition to show when cart is empty -->

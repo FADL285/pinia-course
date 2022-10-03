@@ -1,5 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import { useProductStore } from '@/stores/product.js';
+import { useAuthStore } from '@/stores/auth.js';
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
@@ -35,6 +36,12 @@ export const useCartStore = defineStore('cart', {
       if (prod) {
         prod.count = count;
       }
+    },
+    checkout() {
+      const authStore = useAuthStore();
+      alert(
+        `${authStore.username} just bought ${this.count} items for $${this.total}`
+      );
     }
   }
 });
