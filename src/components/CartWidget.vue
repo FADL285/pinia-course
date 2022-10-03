@@ -28,7 +28,7 @@ const active = ref(false);
             :product="items[0]"
             :count="groupCount(id)"
             @updateCount=""
-            @clear=""
+            @clear="cartStore.clear(id)"
           />
         </ul>
         <div class="flex justify-end text-2xl mb-5">

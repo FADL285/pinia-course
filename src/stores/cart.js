@@ -18,6 +18,9 @@ export const useCartStore = defineStore('cart', {
       for (let index = 0; index < count; index++) {
         this.items.push({ ...item });
       }
+    },
+    clear(id) {
+      this.items = this.items.filter((item) => item.id !== id);
     }
   }
 });
