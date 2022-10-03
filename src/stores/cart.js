@@ -1,4 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
+import { useLocalStorage } from '@vueuse/core';
 import { useProductStore } from '@/stores/product.js';
 import { useAuthStore } from '@/stores/auth.js';
 
@@ -6,7 +7,7 @@ export const useCartStore = defineStore('cart', {
   historyEnabled: true,
 
   state: () => ({
-    items: []
+    items: useLocalStorage('CartStore:items', [])
   }),
   getters: {
     count: (state) => state.items.reduce((acc, item) => acc + item.count, 0),
