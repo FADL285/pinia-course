@@ -1,6 +1,6 @@
 <script>
 // imports
-import { mapState } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 import { useAuthStore } from '@/stores/auth.js';
 
 import CartWidget from './CartWidget.vue';
@@ -11,6 +11,9 @@ export default {
   },
   computed: {
     ...mapState(useAuthStore, ['username'])
+  },
+  methods: {
+    ...mapActions(useAuthStore, ['visitLinkedIn'])
   }
 };
 </script>
@@ -22,7 +25,9 @@ export default {
   >
     <h1 class="text-4xl text-gray-700 font-bold">The Pineapple Stand</h1>
     <div class="flex">
-      <span class="mr-4 text-lg">{{ username }}</span>
+      <span class="mr-4 text-lg cursor-pointer" @click="visitLinkedIn">{{
+        username
+      }}</span>
       <CartWidget />
     </div>
   </header>
