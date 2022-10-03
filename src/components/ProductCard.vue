@@ -24,7 +24,7 @@ const count = ref(0);
       {{ product.name }} -
       <span class="text-green-500">${{ product.price }}</span>
       <div class="text-center m-4">
-        <AppCountInput v-model="count" />
+        <AppCountInput v-model="count" :in-stock="product.inStock" />
       </div>
       <AppButton class="primary" @click="$emit('addToCart', count), (count = 0)"
         >Add to Cart</AppButton

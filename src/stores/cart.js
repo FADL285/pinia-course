@@ -14,7 +14,7 @@ export const useCartStore = defineStore('cart', {
   },
   actions: {
     addItems(count, item) {
-      count = parseInt(count);
+      count = parseInt(count) <= item.inStock ? parseInt(count) : item.inStock;
       for (let index = 0; index < count; index++) {
         this.items.push({ ...item });
       }

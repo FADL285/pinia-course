@@ -1,5 +1,6 @@
 <script setup>
 defineProps({
+  inStock: { type: Number, required: true },
   modelValue: { type: [Number, String], default: 0 },
 });
 
@@ -10,21 +11,21 @@ const updateValue = (value) => emit("update:modelValue", value?.target?.value ||
   <span>
     <button
       class="cursor-pointer bg-gray-200 px-2 rounded-l"
-      @click="updateValue(modelValue > 0 ? modelValue - 1 : null)"
+      @click="updateValue(modelValue > 0 ? modelValue - 1 : 0)"
     >
       -
     </button>
-    <input :value="modelValue" type="number" min="0" max="1000" @input="updateValue" />
+    <input :value="modelValue" type="number" min="0" :max="inStock" @input="updateValue" />
     <button
       class="bg-gray-200 px-2 rounded-r cursor-pointer"
-      @click="updateValue(modelValue + 1)"
+      @click="updateValue(modelValue < inStock ? modelValue + 1 : inStock)"
     >
       +
     </button>
   </span>
 </template>
 
-<style scoped>
+<style scoped lang="pcss">
 input[type="number"] {
   appearance: none;
   -moz-appearance: textfield;
