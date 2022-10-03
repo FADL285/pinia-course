@@ -16,7 +16,6 @@ const active = ref(false);
 const checkout = () => {
   cartStore.checkout();
   active.value = false;
-  cartStore.$reset();
 };
 </script>
 <template>

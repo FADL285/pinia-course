@@ -9,6 +9,21 @@ const { products } = storeToRefs(useProductStore());
 const { fill } = useProductStore();
 const { addItems } = useCartStore();
 
+useCartStore().$onAction(({ name, store, args, after, onError }) => {
+  console.log(`Action ${name} was called on store ${store.$id}`, args);
+
+  if (name === 'checkout') {
+    after(() => {
+      console.log('Thanks for your order!');
+      store.$reset();
+    });
+  }
+
+  onError((error) => {
+    console.error('Oh no there is an error: ', error);
+  });
+});
+
 fill();
 </script>
 
